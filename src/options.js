@@ -195,9 +195,25 @@
             $('#import_protected_cookies').prop('checked', items.import_protected_cookies);
             $('#prevent_protected_cookies_deletion').prop('checked', items.prevent_protected_cookies_deletion);
             $('#skin').val(items.skin);
+            update_skin(items.skin);
             $('#open_in_new_tab').prop('checked', items.open_in_new_tab);
             $('#display_deletion_alert').prop('checked', items.display_deletion_alert);
             $('#template').val(items.template);
+        });
+    }
+
+    function update_skin(skin) {
+        // Update skin if skin != 'default'
+        // if skin == 'default' => remove the css stylesheet
+
+        $('#custom_theme').remove();
+        $('<link>')
+        .appendTo('head')
+        .attr({
+            id: 'custom_theme',
+            type: 'text/css',
+            rel: 'stylesheet',
+            href: 'themes/' + skin + '.css'
         });
     }
 
@@ -347,6 +363,13 @@
             }
         });
     }
+    
+    browser.storage.onChanged.addListener(function (changes, area) {
+        // Called when the local storage area is modified
+        // Load/remove css skin
+        if (changes['skin'] !== undefined)
+            update_skin(changes.skin.newValue);
+    });
 
     /*********** Global variables ***********/
 

@@ -312,7 +312,32 @@
                 cookies_context_number = cookies_array[1].length;
             });
         });
+
+        // Initialize skin
+        browser.storage.local.get({
+            skin: 'default',
+        }).then((items) => {
+            $('#skin').val(items.skin);
+            update_skin(items.skin);
+        });
     }
+
+    function update_skin(skin) {
+        // Update skin if skin != 'default'
+        // if skin == 'default' => remove the css stylesheet
+        if (skin == 'default')
+            $('#custom_theme').remove();
+        else
+            $('<link>')
+            .appendTo('head')
+            .attr({
+                id: 'custom_theme',
+                type: 'text/css',
+                rel: 'stylesheet',
+                href: 'themes/' + skin + '.css'
+        });
+    }
+
 
     /*********** Global variables ***********/
 

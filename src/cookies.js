@@ -1632,17 +1632,16 @@ function update_skin(skin) {
     // Update skin if skin != 'default'
     // if skin == 'default' => remove the css stylesheet
 
-    if (skin == 'default')
-        $('#custom_theme').remove();
-    else
+    $('#custom_theme').remove();
+    if (skin != 'default')
         $('<link>')
-        .appendTo('head')
-        .attr({
-            id: 'custom_theme',
-            type: 'text/css',
-            rel: 'stylesheet',
-            href: skin + '.css'
-        });
+            .appendTo('head')
+            .attr({
+                id: 'custom_theme',
+                type: 'text/css',
+                rel: 'stylesheet',
+                href: 'themes/' + skin + '.css'
+            });
 }
 
 function select_ideal_remaining_element($selected_element) {
@@ -1678,9 +1677,11 @@ function get_store_badge_element(background_color, icon_url, store_name, class_n
     let store_badge = document.createElement("span");
     store_badge.className = (class_name !== undefined) ? class_name : "store-badge";
     store_badge.title = store_name;
-    store_badge.style['background-color'] = background_color;
-    store_badge.style['mask'] = 'url(' + icon_url + ') no-repeat 50% 50%';
-    store_badge.style['mask-size'] = 'cover';
+    store_badge.style = `
+        background-color: ${background_color} !important;
+        mask: url(${icon_url}) no-repeat 50% 50%;
+        mask-size: cover;
+    `;
     return store_badge;
 }
 
