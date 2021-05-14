@@ -1,4 +1,4 @@
-This is a **fork** of https://github.com/ysard/cookie-quick-manager repository.
+This is a **fork** from https://github.com/ysard/cookie-quick-manager repository by [ysard](https://github.com/ysard).
 
 # Changes/Addition as of May 14, 2021
 
